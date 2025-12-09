@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Kelompok — Alat & Bahan Tempat Sampah Otomatis</title>
+  <style>
+:root{--accent:#ff5fa2;--muted:#5b6aff;--card:#ffe6f7}
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, Arial, sans-serif;margin:0;background:#fff;color:#222;line-height:1.5}
+    header{background:linear-gradient(90deg,var(--accent),#116466);color:#fff;padding:28px 20px}
+    .container{max-width:980px;margin:18px auto;padding:0 16px}
+    h1{margin:0;font-size:1.6rem}
+    nav{margin-top:12px}
+    nav a{color:rgba(255,255,255,0.9);margin-right:14px;text-decoration:none;font-weight:600}
+    .hero{display:grid;grid-template-columns:1fr;gap:16px;align-items:center}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 20px rgba(10,10,10,0.05)}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px;border-bottom:1px solid #e6e6e6;text-align:left}
+    th{background:#f0f0f0}
+    .controls{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+    input[type=search]{padding:8px;border-radius:8px;border:1px solid #ddd;flex:1}
+    button{background:var(--accent);color:#fff;padding:8px 12px;border:none;border-radius:8px;cursor:pointer}
+    footer{padding:20px;text-align:center;color:var(--muted);font-size:0.9rem}
+    .members{display:flex;gap:12px;flex-wrap:wrap}
+    .member{background:#fff;padding:10px;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,0.04);flex:1 1 160px}
+    @media(max-width:700px){.grid{grid-template-columns:1fr}}
+    .badge{display:inline-block;padding:6px 8px;border-radius:999px;background:#FF6FA1;color:#000;font-weight:700;font-size:0.8rem}
+    .kit{display:flex;gap:10px;flex-wrap:wrap}
+    .kit .item{background:#fff;padding:8px;border-radius:8px;border:1px solid #eee}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Kelompok: Tempat Sampah Otomatis</h1>
+      <nav>
+        <a href="#home">Beranda</a>
+        <a href="#alat">Alat & Bahan</a>
+        <a href="#rangkaian">Rangkaian</a>
+        <a href="#tim">Anggota</a>
+        <a href="#kontak">Kontak</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="home" class="hero">
+      <div class="card">
+        <h2>Deskripsi singkat</h2>
+        <p>Website ini dibuat sebagai dokumentasi kelompok untuk proyek <strong>Tempat Sampah Otomatis</strong>. Di sini terdapat daftar alat & bahan, skema rangkaian, langkah kerja, dan daftar anggota kelompok.</p>
+        <p class="badge">Tingkat: SMK / Projek Kelompok</p>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Tujuan</h3>
+          <ul>
+            <li>Membuat tempat sampah otomatis yang membuka tutup saat ada sensor mendeteksi</li>
+            <li>Mempelajari penggunaan sensor, motor/servo, dan mikrokontroler</li>
+            <li>Mendokumentasikan alat, bahan, dan langkah pembuatan</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Ringkasan komponen</h3>
+          <div class="kit">
+            <div class="item">Arduino Uno / NodeMCU</div>
+            <div class="item">Servo motor 9g atau motor DC + driver</div>
+            <div class="item">Sensor Ultrasonik HC-SR04 / IR</div>
+            <div class="item">Baterai / Power supply</div>
+            <div class="item">Bahan fisik: kotak, engsel</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="alat" style="margin-top:18px">
+      <div class="card">
+        <h2>Daftar Alat & Bahan</h2>
+        <p>Gunakan kolom cari untuk menemukan alat atau bahan yang dibutuhkan.</p>
+        <div class="controls">
+          <input id="search" type="search" placeholder="Cari alat atau bahan...">
+          <select id="filter">
+            <option value="all">Semua</option>
+            <option value="elektronik">Elektronik</option>
+            <option value="mekanik">Mekanik</option>
+            <option value="lain">Lainnya</option>
+          </select>
+          <button id="exportBtn">Simpan CSV</button>
+        </div>
+        <table id="partsTable">
+          <thead>
+            <tr><th>No</th><th>Nama</th><th>Kategori</th><th>Jumlah</th><th>Keterangan</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="rangkaian" style="margin-top:18px">
+      <div class="card">
+        <h2>Skema Rangkaian & Langkah Kerja</h2>
+        <p><strong>Skema sederhana:</strong> Sensor → Mikrokontroler → Driver → Servo</p>
+        <p>Contoh langkah kerja singkat:</p>
+        <ol>
+          <li>Pasang sensor pada sisi tempat sampah untuk mendeteksi jarak</li>
+          <li>Hubungkan sensor ke Arduino (Vcc, GND, Trig/Echo atau output digital)</li>
+          <li>Program Arduino untuk membaca sensor dan menggerakkan servo</li>
+          <li>Pasang mekanik tutup pada servo</li>
+          <li>Uji coba dan kalibrasi jarak sensor</li>
+        </ol>
+        <p>Berikut contoh potongan kode Arduino (contoh singkat):</p>
+        <pre style="white-space:pre-wrap;background:#fff;padding:10px;border-radius:8px;border:1px solid #eee">// Contoh: sensor ultrasonik + servo
+#include &lt;Servo.h&gt;
+const int trigPin = 9;
+const int echoPin = 8;
+Servo tutup;
+void setup(){
+  tutup.attach(3);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  Serial.begin(9600);
+}
+long readDistance(){
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  long dur = pulseIn(echoPin, HIGH);
+  return dur * 0.034 / 2; // cm
+}
+void loop(){
+  long d = readDistance();
+  Serial.println(d);
+  if(d &lt; 25){ // jika jarak kurang dari 25 cm
+    tutup.write(90); // buka
+  } else {
+    tutup.write(0); // tutup
+  }
+  delay(200);
+}
+</pre>
+      </div>
+    </section>
+
+    <section id="tim" style="margin-top:18px">
+      <div class="card">
+        <h2>Anggota Kelompok</h2>
+        <div class="members">
+          <div class="member"><strong>Alya Novi Khasanah</strong></div>
+          <div class="member"><strong>Diana pratiwi</strong></div>
+          <div class="member"><strong>Erlita Arstya</strong></div>
+          <div class="member"><strong>Endang Saputri</strong></div>
+          <div class="member"><strong>Fannesa Tiara N.M</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="kontak" style="margin-top:18px;margin-bottom:26px">
+      <div class="card">
+        <h2>Kontak & Catatan</h2>
+        <p>Jika perlu, tambahkan gambar skematik (upload ke repository proyek) atau link ke GitHub di sini.</p>
+        <form onsubmit="alert('Form contoh — tambahkan backend jika mau');return false;">
+          <label>Nama</label><br>
+          <input required style="padding:8px;margin:6px 0;width:100%;border-radius:8px;border:1px solid #ddd"><br>
+          <label>Pesan</label><br>
+          <textarea required style="padding:8px;margin:6px 0;width:100%;height:80px;border-radius:8px;border:1px solid #ddd"></textarea><br>
+          <button type="submit">Kirim</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Kelompok Tempat Sampah Otomatis — Buat lebih lengkap sesuai kebutuhan tugas
+  </footer>
+
+  <script>
+    // Data awal parts
+    const parts = [
+      {name:'Arduino Uno',cat:'elektronik',qty:'1',note:'Mikrokontroler'},
+      {name:'Servo motor 9g',cat:'elektronik',qty:'1',note:'Untuk membuka tutup'},
+      {name:'Sensor Ultrasonik HC-SR04',cat:'elektronik',qty:'1',note:'Mendeteksi jarak'},
+    
+      {name:'Baterai 9V / Powerbank',cat:'lain',qty:'1',note:'Sumber daya'},
+      {name:'Kawat kecil',cat:'mekanik',qty:'1',note:'Untuk menarik agar tutup bisa terbuka'},
+      {name:'Kotak plastik/kardus',cat:'mekanik',qty:'1',note:'Badan tempat sampah'},
+      {name:'Kabel jumper',cat:'elektronik',qty:'beberapa',note:'Menghubungkan komponen'},
+    
+    ];
+
+    const tbody = document.querySelector('#partsTable tbody');
+    const search = document.getElementById('search');
+    const filter = document.getElementById('filter');
+    const exportBtn = document.getElementById('exportBtn');
+
+    function render(filterVal='',q=''){
+      tbody.innerHTML='';
+      const filtered = parts.filter((p)=>{
+        if(filterVal && filterVal!=='all' && p.cat!==filterVal) return false;
+        if(q && q.trim()!==''){
+          const s = q.toLowerCase();
+          return p.name.toLowerCase().includes(s) || (p.note||'').toLowerCase().includes(s);
+        }
+        return true;
+      });
+      filtered.forEach((p,i)=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${i+1}</td><td>${p.name}</td><td>${p.cat}</td><td>${p.qty}</td><td>${p.note}</td>`;
+        tbody.appendChild(tr);
+      });
+    }
+    render();
+
+    search.addEventListener('input',()=>render(filter.value,search.value));
+    filter.addEventListener('change',()=>render(filter.value,search.value));
+
+    exportBtn.addEventListener('click',()=>{
+      const rows = [['No','Nama','Kategori','Jumlah','Keterangan']];
+      parts.forEach((p,i)=>rows.push([i+1,p.name,p.cat,p.qty,p.note]));
+      const csv = rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+      const blob = new Blob([csv],{type:'text/csv'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'parts_tempat_sampah_otomatis.csv';
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>
